@@ -1,0 +1,17 @@
+# Build output
+bin/
+obj/
+out/
+TestResults/
+
+# Local database
+*.db
+*.db-shm
+*.db-wal
+
+# IDE / OS
+.vs/
+.vscode/
+.idea/
+*.user
+.DS_Store

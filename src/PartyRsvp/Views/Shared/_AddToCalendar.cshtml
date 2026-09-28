@@ -1,0 +1,6 @@
+@model EventOptions
+
+<div class="calendar-links">
+    <a class="button button-ghost" href="/event.ics" download="suhani-21.ics">Add to Apple / Outlook</a>
+    <a class="button button-ghost" href="@CalendarInvite.GoogleCalendarUrl(Model)" target="_blank" rel="noopener">Add to Google Calendar</a>
+</div>

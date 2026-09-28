@@ -1,0 +1,79 @@
+@model RsvpInput
+@inject IOptions<EventOptions> EventOptions
+@{
+    ViewData["Title"] = "RSVP";
+    var evt = EventOptions.Value;
+}
+
+<section class="panel stationery" aria-labelledby="rsvp-title">
+    <img class="ornament-bow" src="~/images/bow.webp" alt="" width="425" height="214" />
+
+    <h1 id="rsvp-title" class="script-heading">Répondez s'il vous plaît</h1>
+    <p class="subhead">Kindly reply by @evt.RsvpBy.ToString("MMMM d"). Already replied? Use the same email to update your answer.</p>
+
+    <form asp-action="RsvpForm" method="post" class="rsvp-form" data-rsvp-form novalidate>
+        <div asp-validation-summary="ModelOnly" class="form-errors"></div>
+
+        <fieldset class="attend-choice">
+            <legend>Will you join us?</legend>
+            <label class="choice">
+                <input type="radio" asp-for="WillAttend" value="true" />
+                <span><strong>Joyfully accepts</strong><small>Wouldn't miss it</small></span>
+            </label>
+            <label class="choice">
+                <input type="radio" asp-for="WillAttend" value="false" />
+                <span><strong>Regretfully declines</strong><small>Celebrating in spirit</small></span>
+            </label>
+            <span asp-validation-for="WillAttend" class="field-error"></span>
+        </fieldset>
+
+        <div class="field">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" autocomplete="name" />
+            <span asp-validation-for="Name" class="field-error"></span>
+        </div>
+
+        <div class="field-row">
+            <div class="field">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" autocomplete="email" inputmode="email" />
+                <span asp-validation-for="Email" class="field-error"></span>
+            </div>
+            <div class="field">
+                <label asp-for="Phone"></label>
+                <input asp-for="Phone" type="tel" autocomplete="tel" />
+                <span asp-validation-for="Phone" class="field-error"></span>
+            </div>
+        </div>
+
+        <div class="attending-only">
+            <div class="field-row">
+                <div class="field field-narrow">
+                    <label asp-for="PartySize"></label>
+                    <select asp-for="PartySize">
+                        @for (var n = 1; n <= RsvpInput.MaxPartySize; n++)
+                        {
+                            <option value="@n">@(n == 1 ? "Just me" : $"{n} of us")</option>
+                        }
+                    </select>
+                    <span asp-validation-for="PartySize" class="field-error"></span>
+                </div>
+                <div class="field">
+                    <label asp-for="DietaryNotes"></label>
+                    <input asp-for="DietaryNotes" placeholder="Vegetarian, nut allergy…" />
+                    <span asp-validation-for="DietaryNotes" class="field-error"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="field">
+            <label asp-for="Message">A birthday wish for @evt.Honoree <span class="optional">optional · shown on the guest list</span></label>
+            <textarea asp-for="Message" rows="3" maxlength="280" placeholder="Happy 21st!"></textarea>
+            <span asp-validation-for="Message" class="field-error"></span>
+        </div>
+
+        <p class="privacy-note">Your email and phone are only seen by the host, never shown on the guest list.</p>
+
+        <button type="submit" class="button">Send my reply</button>
+    </form>
+</section>

@@ -1,0 +1,79 @@
+@model EventOptions
+@inject TimeProvider Clock
+@{
+    var rsvpOpen = Model.IsRsvpOpen(Clock.GetUtcNow());
+}
+
+<section class="invitation" aria-labelledby="invite-title">
+    <div class="invitation-card">
+        <div class="invitation-text">
+            <p class="eyebrow">You're invited to</p>
+            <p class="tagline">@Model.Tagline</p>
+            <p class="celebrating">celebrating</p>
+            <h1 id="invite-title" class="honoree">@Model.Honoree</h1>
+            <p class="occasion">@Model.Occasion</p>
+
+            <div class="date-row" aria-label="@Model.StartsAt.ToString("dddd, MMMM d 'at' h:mm tt")">
+                <span>@Model.StartsAt.ToString("dddd")</span>
+                <strong>
+                    <small>@Model.StartsAt.ToString("MMMM")</small>
+                    @Model.StartsAt.Day
+                    <small>@Model.StartsAt.Year</small>
+                </strong>
+                <span>@Model.StartsAt.ToString("h tt").ToLowerInvariant()</span>
+            </div>
+
+            <p class="place">@Model.Location<br />@Model.Address</p>
+
+            @if (rsvpOpen)
+            {
+                <a asp-action="RsvpForm" class="button">Kindly reply</a>
+            }
+            else
+            {
+                <a asp-action="ListResponses" class="button">See who's coming</a>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="panel details" aria-labelledby="details-title">
+    <h2 id="details-title" class="script-heading">The details</h2>
+
+    <div class="countdown" data-countdown="@Model.StartsAt.ToString("o")" aria-live="off">
+        <div><span data-unit="days">–</span><small>days</small></div>
+        <div><span data-unit="hours">–</span><small>hours</small></div>
+        <div><span data-unit="minutes">–</span><small>minutes</small></div>
+        <div><span data-unit="seconds">–</span><small>seconds</small></div>
+        <p class="countdown-done" hidden>It's party time. See you in the garden!</p>
+    </div>
+
+    @if (Model.Description.Length > 0)
+    {
+        <p class="lede">@Model.Description</p>
+    }
+
+    <dl class="facts">
+        <div>
+            <dt>When</dt>
+            <dd>@Model.StartsAt.ToString("dddd, MMMM d")<br />@Model.StartsAt.ToString("h:mm tt") – @Model.EndsAt.ToString("h:mm tt")</dd>
+        </div>
+        <div>
+            <dt>Where</dt>
+            <dd>@Model.Location<br />@Model.Address</dd>
+        </div>
+        @if (Model.DressCode.Length > 0)
+        {
+            <div>
+                <dt>Dress code</dt>
+                <dd>@Model.DressCode</dd>
+            </div>
+        }
+        <div>
+            <dt>Kindly reply by</dt>
+            <dd>@Model.RsvpBy.ToString("dddd, MMMM d")</dd>
+        </div>
+    </dl>
+
+    <partial name="_AddToCalendar" model="Model" />
+</section>

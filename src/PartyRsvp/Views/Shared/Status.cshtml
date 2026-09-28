@@ -1,0 +1,20 @@
+@model int
+@{
+    var (heading, body) = Model switch
+    {
+        404 => ("Lost in the garden", "We couldn't find that page. It may have wandered off down the path."),
+        429 => ("Slow down, darling", "That's a lot of replies at once. Wait a minute and try again."),
+        >= 500 => ("Something went wrong", "A petal fell in the works. Please try again in a moment."),
+        _ => ("Hmm, that didn't work", "Something about that request wasn't quite right."),
+    };
+    ViewData["Title"] = heading;
+}
+
+<section class="panel stationery" aria-labelledby="status-title">
+    <p class="eyebrow">Error @Model</p>
+    <h1 id="status-title" class="script-heading">@heading</h1>
+    <p class="lede">@body</p>
+    <div class="actions">
+        <a asp-controller="Home" asp-action="Index" class="button">Back to the invitation</a>
+    </div>
+</section>

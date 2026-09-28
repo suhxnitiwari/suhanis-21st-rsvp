@@ -1,0 +1,18 @@
+@model EventOptions
+@{
+    ViewData["Title"] = "Replies closed";
+}
+
+<section class="panel stationery" aria-labelledby="closed-title">
+    <img class="ornament-bow" src="~/images/bow.webp" alt="" width="425" height="214" />
+
+    <h1 id="closed-title" class="script-heading">Replies are closed</h1>
+    <p class="lede">
+        We stopped taking replies on @Model.RsvpBy.ToString("MMMM d") so the table can be set.
+        If you still need to reach @Model.Honoree, a text works best. Late well-wishes are always welcome.
+    </p>
+
+    <div class="actions">
+        <a asp-action="ListResponses" class="button">See who's coming</a>
+    </div>
+</section>

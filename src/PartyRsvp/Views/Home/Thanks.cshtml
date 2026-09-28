@@ -1,0 +1,41 @@
+@model ThanksViewModel
+@{
+    ViewData["Title"] = "Thank you";
+    var rsvp = Model.Rsvp;
+    var firstName = rsvp.Name.Split(' ', StringSplitOptions.RemoveEmptyEntries)[0];
+}
+
+<section class="panel stationery thanks" aria-labelledby="thanks-title" @(rsvp.WillAttend ? "data-petals" : "")>
+    <img class="ornament-bow" src="~/images/bow.webp" alt="" width="425" height="214" />
+
+    <h1 id="thanks-title" class="script-heading">Thank you, @firstName</h1>
+
+    @if (rsvp.WillAttend)
+    {
+        <p class="lede">
+            @(Model.IsUpdate ? "Your reply has been updated." : "Your reply is in.")
+            We can't wait to celebrate with you@(rsvp.PartySize > 1 ? $" and your party of {rsvp.PartySize}" : "")!
+        </p>
+        <p>
+            See you <strong>@Model.Event.StartsAt.ToString("dddd, MMMM d 'at' h:mm tt")</strong>
+            at @Model.Event.Location. The prosecco is already chilling.
+        </p>
+        <partial name="_AddToCalendar" model="Model.Event" />
+    }
+    else
+    {
+        <p class="lede">
+            @(Model.IsUpdate ? "Your reply has been updated." : "Thank you for letting us know.")
+            We'll miss you under the string lights, and we'll raise a glass in your honour.
+        </p>
+    }
+
+    <p class="small-print">Plans change? Send the form again with <strong>@rsvp.Email</strong> and we'll update your reply.</p>
+
+    <div class="actions">
+        <a asp-action="ListResponses" class="button">See who's coming</a>
+        <a asp-action="RsvpForm" class="text-link">Edit my reply</a>
+    </div>
+
+    <img class="ornament-garden" src="~/images/garden.webp" alt="" width="835" height="357" loading="lazy" />
+</section>

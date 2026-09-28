@@ -1,0 +1,53 @@
+@model GuestListViewModel
+@{
+    ViewData["Title"] = "Guest list";
+}
+
+<section class="panel stationery" aria-labelledby="guests-title">
+    <img class="ornament-bow" src="~/images/bow.webp" alt="" width="425" height="214" />
+
+    <h1 id="guests-title" class="script-heading">Who's coming</h1>
+    <p class="subhead">
+        <span class="live-dot" aria-hidden="true"></span>
+        Updates live as replies come in
+    </p>
+
+    <dl class="stats" data-stats aria-live="polite">
+        <div><dt>Guests</dt><dd data-stat="headcount">@Model.Stats.Headcount</dd></div>
+        <div><dt>Replies</dt><dd data-stat="responses">@Model.Stats.Responses</dd></div>
+        <div><dt>Regrets</dt><dd data-stat="declined">@Model.Stats.Declined</dd></div>
+    </dl>
+
+    <ol class="guest-list" data-guest-list>
+        @foreach (var guest in Model.Guests)
+        {
+            <li>
+                <span class="guest-name">@guest.Name</span>
+                @if (guest.PartySize > 1)
+                {
+                    <span class="guest-plus">+@(guest.PartySize - 1)</span>
+                }
+                @if (guest.Message is not null)
+                {
+                    <q class="guest-wish">@guest.Message</q>
+                }
+            </li>
+        }
+    </ol>
+
+    <p class="empty-state" data-empty @(Model.Guests.Count > 0 ? "hidden" : "")>
+        No replies yet. Be the first name on the list!
+    </p>
+
+    <div class="actions">
+        <a asp-action="RsvpForm" class="button">RSVP</a>
+    </div>
+
+    <img class="ornament-garden" src="~/images/garden.webp" alt="" width="835" height="357" loading="lazy" />
+</section>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/@@microsoft/signalr@8.0.7/dist/browser/signalr.min.js"
+            integrity="sha384-mU1xC5yC2LldSW74Rj1Ax8wPiLw/28V5eh51uKJMlBbRVsOtUYd4xyzNsgIAJARB" crossorigin="anonymous"></script>
+    <script src="~/js/guests.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,56 @@
+@inject IOptions<EventOptions> EventOptions
+@{
+    var evt = EventOptions.Value;
+    var title = ViewData["Title"] is string page ? $"{page} · {evt.Title}" : evt.Title;
+    var summary = $"{evt.Tagline} — {evt.StartsAt:dddd, MMMM d} at {evt.Location}. Kindly reply by {evt.RsvpBy:MMMM d}.";
+    var active = ViewContext.RouteData.Values["action"] as string;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@title</title>
+    <meta name="description" content="@summary" />
+    <meta name="theme-color" content="#f4d9cf" />
+
+    @* Link previews, so the invite looks lovely when it's texted around. *@
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="@evt.Title" />
+    <meta property="og:description" content="@summary" />
+    <meta property="og:image" content="@($"{Context.Request.Scheme}://{Context.Request.Host}/images/og-card.jpg")" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="~/images/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Pinyon+Script&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+        <a class="monogram" asp-action="Index" aria-label="Home">
+            <span>@evt.Honoree[0]</span><sup>21</sup>
+        </a>
+        <nav aria-label="Main">
+            <a asp-action="Index" aria-current="@(active == "Index" ? "page" : null)">Invitation</a>
+            <a asp-action="RsvpForm" aria-current="@(active == "RsvpForm" ? "page" : null)">RSVP</a>
+            <a asp-action="ListResponses" aria-current="@(active == "ListResponses" ? "page" : null)">Guest list</a>
+        </nav>
+    </header>
+
+    <main id="main">
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        <p>@evt.Tagline · @evt.StartsAt.ToString("MMMM d, yyyy")</p>
+        <p class="fine">Built with ASP.NET Core MVC · <a href="https://github.com/suhxnitiwari">@@suhxnitiwari</a></p>
+    </footer>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
