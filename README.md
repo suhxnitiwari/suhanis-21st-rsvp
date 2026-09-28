@@ -58,8 +58,8 @@ Everything about the event lives in [`src/PartyRsvp/appsettings.json`](src/Party
   "Honoree": "Suhani",
   "Occasion": "turns twenty-one",
   "Tagline": "An Evening in the Garden",
-  "StartsAt": "2026-11-14T19:00:00-06:00",
-  "RsvpBy": "2026-11-01T23:59:59-05:00",
+  "StartsAt": "2027-03-06T19:00:00-06:00",
+  "RsvpBy": "2027-02-20T23:59:59-06:00",
   "Location": "The Garden Terrace",
   ...
 }

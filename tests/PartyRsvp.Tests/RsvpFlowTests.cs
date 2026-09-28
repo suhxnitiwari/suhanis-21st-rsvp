@@ -152,7 +152,7 @@ public class RsvpFlowTests : IDisposable
     {
         var client = _app.CreateClient();
         var form = await client.GetStringAsync("/rsvp"); // grab a token while still open
-        _app.Clock.Now = new DateTimeOffset(2026, 11, 5, 0, 0, 0, TimeSpan.Zero);
+        _app.Clock.Now = new DateTimeOffset(2027, 2, 25, 0, 0, 0, TimeSpan.Zero);
 
         Assert.Contains("Replies are closed", await client.GetStringAsync("/rsvp"));
 
