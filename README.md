@@ -3,6 +3,10 @@
 [![CI](https://github.com/suhxnitiwari/suhanis-21st-rsvp/actions/workflows/ci.yml/badge.svg)](https://github.com/suhxnitiwari/suhanis-21st-rsvp/actions/workflows/ci.yml)
 ![.NET 10](https://img.shields.io/badge/.NET-10-8A4D57) ![ASP.NET Core MVC](https://img.shields.io/badge/ASP.NET_Core-MVC-8A4D57) ![EF Core + SQLite](https://img.shields.io/badge/EF_Core-SQLite-56634A) ![SignalR](https://img.shields.io/badge/SignalR-real--time-56634A)
 
+## Ownership
+
+© 2026 Suhani Tiwari. **All rights reserved.** This is my original work. The code is public so you can see how I build, not so you can reuse it: copying, reusing or republishing any part of it, including for a portfolio or a class assignment, is not permitted without my written permission. See [LICENSE](LICENSE).
+
 An RSVP site for my 21st birthday, built with **ASP.NET Core MVC** on .NET 10.
 
 It started as Homework 1 in MIS 333K at UT Austin, a tutorial "party invites" app with a form and a list. I got 100 on it, then rebuilt it into something I'd actually send to friends: a watercolor invitation, a live guest list, calendar invites, a real database and a test suite.
