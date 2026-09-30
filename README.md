@@ -1,4 +1,7 @@
-# An Evening in the Garden: Suhani's 21st 🎀
+# An Evening in the Garden: Suhani's 21st
+
+[![CI](https://github.com/suhxnitiwari/suhanis-21st-rsvp/actions/workflows/ci.yml/badge.svg)](https://github.com/suhxnitiwari/suhanis-21st-rsvp/actions/workflows/ci.yml)
+![.NET 10](https://img.shields.io/badge/.NET-10-8A4D57) ![ASP.NET Core MVC](https://img.shields.io/badge/ASP.NET_Core-MVC-8A4D57) ![EF Core + SQLite](https://img.shields.io/badge/EF_Core-SQLite-56634A) ![SignalR](https://img.shields.io/badge/SignalR-real--time-56634A)
 
 An RSVP site for my 21st birthday, built with **ASP.NET Core MVC** on .NET 10.
 
@@ -83,4 +86,4 @@ design/                           source artwork the web images are cut from
 
 ---
 
-*Originally built for MIS 333K, Homework 1: MVC Tutorial.*
+*Originally built for MIS 333K, Homework 1: MVC Tutorial. Built by [Suhani Tiwari](https://suhanitiwari.com), MIS at McCombs, UT Austin.*
