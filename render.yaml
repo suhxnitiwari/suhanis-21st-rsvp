@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: suhanis-21st-rsvp
+    runtime: docker
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
